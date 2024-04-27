@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO LIST</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <style>
+
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rgba(187, 11, 222, 0.495); */
+  
+}
+
+.container {
+  width: 400px;
+  height: auto;
+  min-height: 400px;
+  padding: 30px;
+  background: transparent;
+  border: 2px solid #e6b7eca1;
+  border-radius: 10px;
+  backdrop-filter: blur(15px);
+}
+
+h1 {
+  color: black;
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.todo-input {
+  flex: 1;
+  outline: none;
+  padding: 10px 10px 10px 20px;
+  background-color: transparent;
+  border: 2px solid #e6b7eca1;
+  border-radius: 30px;
+  color: black;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.todo-input::placeholder {
+  color:black;
+   
+}
+
+
+
+.add-button {
+  border: none;
+  outline: none;
+  /* background: #e6b7eca1; */
+  color: black;
+  font-size: 35px;
+  cursor: pointer;
+  border-radius: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+
+
+ /* .todo {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: ;
+  background-color: #463c7b;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 2px solid #e6b7eca1;
+  transition: all 0.2s ease;
+   display: none;
+ }   */
+
+ /* .todo:first-child {
+  margin-top: 0;
+}
+
+.todo:last-child {
+  margin-bottom: 0;
+} */
+
+.todo:hover {
+  background-color:#e6b7eca1;
+}
+
+/* .todo label {
+  cursor: pointer;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  color: #eee;
+} */
+
+/* .todo span {
+  padding-left: 20px;
+  position: relative;
+  cursor: pointer; */
+  /* display: none; */
+/* } */
+
+/* span::before {
+  content: "";
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  margin-left: -30px;
+  border-radius: 100px;
+  border: 2px solid #e6b7eca1;
+}
+
+input[type='checkbox'] {
+  visibility: hidden;
+} */
+
+/* input:checked + span {
+  text-decoration: line-through
+}
+
+.todo:hover input:checked + span::before {
+  background: url(./check.svg) 50% 50% no-repeat #09bb21;
+  border-color: #09bb21;
+}
+
+.todo:hover span::before {
+  border-color: #eee;
+} */
+
+/* .todo .delete-btn  {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #eee;
+  font-size: 24px;
+}  */
+
+.todos-container  {
+  height: 300px;
+  overflow: overlay;
+}
+
+ /* .todos-container::-webkit-scrollbar-track  {
+  background: rgb(247, 247, 247);
+  border-radius: 20px
+}
+
+.todos-container::-webkit-scrollbar  {
+  width: 0;
+}
+
+.todos-container:hover::-webkit-scrollbar  {
+  width: 7px;
+}
+
+.todos-container::-webkit-scrollbar-thumb  {
+  background: #d5d5d5;
+  border-radius: 20px;
+}  */
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.filter {
+  color:black;
+  padding: 5px 15px;
+  border-radius: 100px;
+  border: 2px solid #e6b7eca1;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.filter.active, .filter:hover {
+  background-color: #c6bbc7a1;
+}
+
+.delete-all {
+  display: flex;
+  color: black;
+  padding: 7px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-all:hover {
+  border-radius: 5px;
+  background-color: #e6b7eca1;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Todo List</h1>
+    <div class="input-container">
+      <input class="todo-input"  id="input" placeholder="Add a new task...">
+      <button class="add-button" id="btn">
+        <i class="fa fa-plus-circle"></i>
+        
+      </button>
+    </div>
+    <div class="filters">
+      <div class="filter" data-filter="completed">Complete</div>
+      <div class="filter" data-filter="pending">Incomplete</div>
+      <div class="delete-all"  onclick="myFunction()">Delete All</div>
+    </div>
+    <div class="todos-container">
+      <ul class="todos">
+        <!-- <li class="todo">
+            <label for="inputs">
+              <input id="inputs"  type="checkbox" >
+              <span></span>
+            </label>
+            <button class="delete-btn" ><i class="fa fa-times"></i></button>
+          </li> -->
+          <!-- <input type="checkbox" id="box" >  -->
+         
+      </ul>
+     
+    </div>
+  </div>
+ 
+
+
+</body>
+
+<script>
+    
+  document.getElementById('btn').addEventListener('click',
+  function(){
+      let input=document.getElementById('input').value;
+      
+     document.getElementById("input").value=""
+
+      let ul=document.querySelector('ul')
+  
+      
+  
+     
+      let elem=document.createElement('li' ,{className:'rani'});
+      elem.innerText=input;
+      elem.style.listStyle= "none";
+      elem.style.display="flex";
+  elem.style.alignItems="center";
+  elem.style.justifyContent="space-between";
+  elem.style.backgroundColor= "#463c7b";
+  elem.style.borderRadius= "5px";
+  elem.style.margin="10px 0";
+  elem.style.padding="10px 12px";
+  elem.style.border="2px solid #e6b7eca1";
+  elem.style.transition="all 0.2s ease";
+      
+     elem.style.color="#fff";
+    
+     ul.appendChild(elem);
+      
+
+ 
+
+
+
+
+// let elem1=document.createElement('li')
+
+//   elem1.style.height="20px";
+//   elem1.style.width="20px";
+//   elem1.style.position="relative";
+//   elem1.style.borderRadius="100px";
+//   elem1.style.border="2px solid #e6b7eca1";
+//   elem1.style.cursor="pointer";
+//   elem1.style.display="flex";
+//   elem1.style.justifyContent="space-between";
+  
+// elem.appendChild(elem1);
+ 
+
+      let b=document.createElement('li');
+      
+      b.innerHTML='<i class="fa-regular fa-trash-can"></i>';
+     b.style.cursor="pointer";
+     elem.appendChild(b);
+     
+
+// adding some actions..............
+
+elem.addEventListener('click',function(){ 
+elem.style.textDecoration="line-through";
+elem.style.backgroundColor="#09bb21";
+elem.style.borderColor="#09bb21";
+// elem.innerHTML='<i class="fa-solid fa-check"></i>'
+});
+
+function myFunction() {
+  const element = document.getElementsByTagName('li');
+ element.remove();
+ 
+}
+
+
+
+b.addEventListener('click',function(){
+  elem.remove();
+
+});
+
+ 
+
+
+
+document.getElementById('input').value=""
+
+
+  })
+
+
+
+
+
+
+  
+</script>
+
+</html>
